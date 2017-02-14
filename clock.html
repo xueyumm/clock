@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>时钟</title>
+    <style>
+        body{background: #000;}
+        #c1{background: #fff;}
+    </style>
+    <script>
+    //window.setInterval(
+    window.onload=function(){
+        var oG=document.getElementById("c1");
+        var oGC=oG.getContext("2d");
+
+        //获取本地时间
+        setInterval(function Down(){
+        var oDate=new Date();
+        var oHours=oDate.getHours();
+        var oMins=oDate.getMinutes();
+        var oSec=oDate.getSeconds();
+        var oHoursValue=(oHours*30-90+oMins/2)*Math.PI/180;
+        var oMinsValue=(oMins*6-90)*Math.PI/180;
+        var oSecValue=(oSec*6-90)*Math.PI/180;
+
+        oGC.beginPath();
+        for(var i=0;i<60;i++){
+        oGC.moveTo(200, 200);
+        oGC.arc(200, 200, 150, 0, 360*Math.PI/180, false);
+    }
+        oGC.closePath();
+        oGC.stroke();
+
+        oGC.clearRect(0, 0, oG.width, oG.height)
+        // 小刻度
+        oGC.lineWidth=2;
+        oGC.strokeStyle="#000";
+        oGC.beginPath();
+        for(var i=0;i<60;i++){
+        oGC.moveTo(200, 200);
+        oGC.arc(200, 200, 150, 6*i*Math.PI/180, 6*(i+1)*Math.PI/180, false);
+    }
+        oGC.closePath();
+        oGC.stroke();
+
+        //白色圆1
+        oGC.fillStyle="#fff";
+        oGC.beginPath();
+        oGC.moveTo(200, 200);
+        oGC.arc(200, 200, 150*19/20, 0, 360*Math.PI/180, false);
+        oGC.closePath();
+        oGC.fill();
+
+        // 大刻度
+        oGC.lineWidth=3;
+        oGC.strokeStyle="#000";
+        oGC.beginPath();
+        for(var i=0;i<12;i++){
+        oGC.moveTo(200, 200);
+        oGC.arc(200, 200, 150, 30*i*Math.PI/180, 30*(i+1)*Math.PI/180, false);
+    }
+        oGC.closePath();
+        oGC.stroke();
+
+        //白色圆2
+        oGC.fillStyle="#fff";
+        oGC.beginPath();
+        oGC.moveTo(200, 200);
+        oGC.arc(200, 200, 150*18/20, 0, 360*Math.PI/180, false);
+        oGC.closePath();
+        oGC.fill();
+
+        // 时针
+        oGC.lineWidth=5;
+        oGC.beginPath();
+        oGC.strokeStyle="red";
+        oGC.moveTo(200, 200);
+        oGC.arc(200, 200, 150*12/20, oHoursValue, oHoursValue, false);
+        oGC.closePath();
+        oGC.stroke();
+
+        // 分针
+        oGC.lineWidth=3;
+        oGC.beginPath();
+        oGC.strokeStyle="#000";
+        oGC.moveTo(200, 200);
+        oGC.arc(200, 200, 150*15/20, oMinsValue, oMinsValue, false);
+        oGC.closePath();
+        oGC.stroke();
+
+        // 秒针
+        oGC.lineWidth=1;
+        oGC.beginPath();
+        oGC.strokeStyle="skyblue";
+        oGC.moveTo(200, 200);
+        oGC.arc(200, 200, 150*17/20, oSecValue, oSecValue, false);
+        oGC.closePath();
+        oGC.stroke();
+
+        //黑色圆心
+        oGC.fillStyle="#000";
+        oGC.beginPath();
+        oGC.moveTo(200, 200);
+        oGC.arc(200, 200, 150*1/20, 0, 360*Math.PI/180, false);
+        oGC.closePath();
+        oGC.fill();
+
+    },1);
+    //Down();
+}
+
+    </script>
+</head>
+<body>
+    <canvas id="c1" width="600" height="600">
+        
+    </canvas>
+</body>
+</html>
